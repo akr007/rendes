@@ -123,7 +123,7 @@
                 echo "<br />";
                 echo "Jelenlegi dátum: ".$currentTime;
                 echo "<br />";
-                echo "A jelenlegi dátum első napja: ".$currentMonth. " ". $currentMonthDay;
+                echo "A jelenlegi hónap első napja: ".$currentMonth. " ". $currentMonthDay;
                 echo "<br />";
                 echo "<br />";
             
