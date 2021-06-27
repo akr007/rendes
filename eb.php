@@ -10,9 +10,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
+        //if (window.history.replaceState) {
+          //  window.history.replaceState(null, null, window.location.href);
+        //}
     </script>
     <title>Football Európa Bajnokság</title>
 </head>
@@ -48,6 +48,38 @@
         $Por = "Portugália";
         $Fran = "Franciaország";
         $Germ = "Németország";
+
+        //----------------------
+
+        $ItalyRank = 1642;
+        $SwitzRank = 1606;
+        $WalesRank = 1570;
+        $TurkeyRank = 1505;
+        
+        $BelgiumRank = 1783;
+        $DenmarkRank = 1632;
+        $FinnRank = 1411;
+        $RussiaRank = 1463;
+        
+        $MacRank = 1375;
+        $UkrRank = 1515;
+        $NethRank = 1598;
+        $AuRank = 1523;
+        
+        $EngRank = 1687;
+        $CroRank = 1606;
+        $CzehRank = 1459;
+        $ScoRank = 1441;
+        
+        $PolRank = 1550;
+        $SloRank = 1475;
+        $EspRank = 1648;
+        $SweRank = 1570;
+        
+        $HunRank = 1469;
+        $PorRank = 1666;
+        $FranRank = 1743;
+        $GermRank = 1609;
 
         //----------------------
 
@@ -1886,39 +1918,47 @@
 
             <?php
                 $groupA = array(
-                    array("nation" => $Turkey, "match" => $TurkeyMatchNumber, "win" => $TurkeyWin, "draw" => $TurkeyDraw, "lose" => $TurkeyLose, "diff" => $TurkeyScoreDiff, "point" => $TurkeyPoint),
-                    array("nation" => $Italy, "match" => $ItalyMatchNumber, "win" => $ItalyWin, "draw" => $ItalyDraw, "lose" => $ItalyLose, "diff" => $ItalyScoreDiff, "point" => $ItalyPoint),
-                    array("nation" => $Wales, "match" => $WalesMatchNumber, "win" => $WalesWin, "draw" => $WalesDraw, "lose" => $WalesLose, "diff" => $WalesScoreDiff, "point" => $WalesPoint),
-                    array("nation" => $Switz, "match" => $SwitzMatchNumber, "win" => $SwitzWin, "draw" => $SwitzDraw, "lose" => $SwitzLose, "diff" => $SwitzScoreDiff, "point" => $SwitzPoint),
+                    array("nation" => $Turkey, "rank"=>$TurkeyRank, "overall"=>$TurkeyOverall, "match" => $TurkeyMatchNumber, "win" => $TurkeyWin, "draw" => $TurkeyDraw, "lose" => $TurkeyLose, "diff" => $TurkeyScoreDiff, "point" => $TurkeyPoint),
+                    array("nation" => $Italy, "rank"=>$ItalyRank, "overall"=>$ItalyOverall, "match" => $ItalyMatchNumber, "win" => $ItalyWin, "draw" => $ItalyDraw, "lose" => $ItalyLose, "diff" => $ItalyScoreDiff, "point" => $ItalyPoint),
+                    array("nation" => $Wales, "rank"=>$WalesRank, "overall"=>$WalesOverall, "match" => $WalesMatchNumber, "win" => $WalesWin, "draw" => $WalesDraw, "lose" => $WalesLose, "diff" => $WalesScoreDiff, "point" => $WalesPoint),
+                    array("nation" => $Switz, "rank"=>$SwitzRank, "overall"=>$SwitzOverall, "match" => $SwitzMatchNumber, "win" => $SwitzWin, "draw" => $SwitzDraw, "lose" => $SwitzLose, "diff" => $SwitzScoreDiff, "point" => $SwitzPoint),
                 );
+
+                usort($groupA, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupA, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
                 usort($groupA, function ($item1, $item2) {
                     return $item2['point'] <=> $item1['point'];
-                });
+                });    
 
                 $groupB = array(
-                    array("nation" => $Denmark, "match" => $DenmarkMatchNumber, "win" => $DenmarkWin, "draw" => $DenmarkDraw, "lose" => $DenmarkLose, "diff" => $DenmarkScoreDiff, "point" => $DenmarkPoint),
-                    array("nation" => $Belgium, "match" => $BelgiumMatchNumber, "win" => $BelgiumWin, "draw" => $BelgiumDraw, "lose" => $BelgiumLose, "diff" => $BelgiumScoreDiff, "point" => $BelgiumPoint),
-                    array("nation" => $Russia, "match" => $RussiaMatchNumber, "win" => $RussiaWin, "draw" => $RussiaDraw, "lose" => $RussiaLose, "diff" => $RussiaScoreDiff, "point" => $RussiaPoint),
-                    array("nation" => $Finland, "match" => $FinnMatchNumber, "win" => $FinnWin, "draw" => $FinnDraw, "lose" => $FinnLose, "diff" => $FinnScoreDiff, "point" => $FinnPoint),
+                    array("nation" =>$Denmark, "rank"=>$DenmarkRank, "overall"=>$DenmarkOverall, "match" => $DenmarkMatchNumber, "win" => $DenmarkWin, "draw" => $DenmarkDraw, "lose" => $DenmarkLose, "diff" => $DenmarkScoreDiff, "point" => $DenmarkPoint),
+                    array("nation" => $Belgium, "rank"=>$BelgiumRank, "overall"=>$BelgiumOverall, "match" => $BelgiumMatchNumber, "win" => $BelgiumWin, "draw" => $BelgiumDraw, "lose" => $BelgiumLose, "diff" => $BelgiumScoreDiff, "point" => $BelgiumPoint),
+                    array("nation" => $Russia, "rank"=>$RussiaRank, "overall"=>$RussiaOverall, "match" => $RussiaMatchNumber, "win" => $RussiaWin, "draw" => $RussiaDraw, "lose" => $RussiaLose, "diff" => $RussiaScoreDiff, "point" => $RussiaPoint),
+                    array("nation" => $Finland, "rank"=>$FinnRank, "overall"=>$FinnOverall, "match" => $FinnMatchNumber, "win" => $FinnWin, "draw" => $FinnDraw, "lose" => $FinnLose, "diff" => $FinnScoreDiff, "point" => $FinnPoint),
                 );
-
+                usort($groupB, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupB, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
-
                 usort($groupB, function ($item1, $item2) {
                     return $item2['point'] <=> $item1['point'];
                 });
 
                 $groupC = array(
-                    array("nation" => $Au, "match" => $AuMatchNumber, "win" => $AuWin, "draw" => $AuDraw, "lose" => $AuLose, "diff" => $AuScoreDiff, "point" => $AuPoint),
-                    array("nation" => $Mac, "match" => $MacMatchNumber, "win" => $MacWin, "draw" => $MacDraw, "lose" => $MacLose, "diff" => $MacScoreDiff, "point" => $MacPoint),
-                    array("nation" => $Neth, "match" => $NethMatchNumber, "win" => $NethWin, "draw" => $NethDraw, "lose" => $NethLose, "diff" => $NethScoreDiff, "point" => $NethPoint),
-                    array("nation" => $Ukr, "match" => $UkrMatchNumber, "win" => $UkrWin, "draw" => $UkrDraw, "lose" => $UkrLose, "diff" => $UkrScoreDiff, "point" => $UkrPoint),
+                    array("nation" => $Au, "rank"=>$AuRank, "overall"=>$AuOverall, "match" => $AuMatchNumber, "win" => $AuWin, "draw" => $AuDraw, "lose" => $AuLose, "diff" => $AuScoreDiff, "point" => $AuPoint),
+                    array("nation" => $Mac, "rank"=>$MacRank, "overall"=>$MacOverall, "match" => $MacMatchNumber, "win" => $MacWin, "draw" => $MacDraw, "lose" => $MacLose, "diff" => $MacScoreDiff, "point" => $MacPoint),
+                    array("nation" => $Neth, "rank"=>$NethRank, "overall"=>$NethOverall, "match" => $NethMatchNumber, "win" => $NethWin, "draw" => $NethDraw, "lose" => $NethLose, "diff" => $NethScoreDiff, "point" => $NethPoint),
+                    array("nation" => $Ukr, "rank"=>$UkrRank, "overall"=>$UkrOverall, "match" => $UkrMatchNumber, "win" => $UkrWin, "draw" => $UkrDraw, "lose" => $UkrLose, "diff" => $UkrScoreDiff, "point" => $UkrPoint),
                 );
+                usort($groupC, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupC, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
@@ -1927,26 +1967,30 @@
                 });
 
                 $groupD = array(
-                    array("nation" => $Eng, "match" => $EngMatchNumber, "win" => $EngWin, "draw" => $EngDraw, "lose" => $EngLose, "diff" => $EngScoreDiff, "point" => $EngPoint),
-                    array("nation" => $Cro, "match" => $CroMatchNumber, "win" => $CroWin, "draw" => $CroDraw, "lose" => $CroLose, "diff" => $CroScoreDiff, "point" => $CroPoint),
-                    array("nation" => $Sco, "match" => $ScoMatchNumber, "win" => $ScoWin, "draw" => $ScoDraw, "lose" => $ScoLose, "diff" => $ScoScoreDiff, "point" => $ScoPoint),
-                    array("nation" => $Czeh, "match" => $CzehMatchNumber, "win" => $CzehWin, "draw" => $CzehDraw, "lose" => $CzehLose, "diff" => $CzehScoreDiff, "point" => $CzehPoint),
+                    array("nation" => $Eng, "rank"=>$EngRank, "overall"=>$EngOverall, "match" => $EngMatchNumber, "win" => $EngWin, "draw" => $EngDraw, "lose" => $EngLose, "diff" => $EngScoreDiff, "point" => $EngPoint),
+                    array("nation" => $Cro, "rank"=>$CroRank, "overall"=>$CroOverall, "match" => $CroMatchNumber, "win" => $CroWin, "draw" => $CroDraw, "lose" => $CroLose, "diff" => $CroScoreDiff, "point" => $CroPoint),
+                    array("nation" => $Sco, "rank"=>$ScoRank, "overall"=>$ScoOverall, "match" => $ScoMatchNumber, "win" => $ScoWin, "draw" => $ScoDraw, "lose" => $ScoLose, "diff" => $ScoScoreDiff, "point" => $ScoPoint),
+                    array("nation" => $Czeh, "rank"=>$CzehRank, "overall"=>$CzehOverall, "match" => $CzehMatchNumber, "win" => $CzehWin, "draw" => $CzehDraw, "lose" => $CzehLose, "diff" => $CzehScoreDiff, "point" => $CzehPoint),
                 );
-
+                usort($groupD, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupD, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
-
                 usort($groupD, function ($item1, $item2) {
                     return $item2['point'] <=> $item1['point'];
                 });
 
                 $groupE = array(
-                    array("nation" => $Pol, "match" => $PolMatchNumber, "win" => $PolWin, "draw" => $PolDraw, "lose" => $PolLose, "diff" => $PolScoreDiff, "point" => $PolPoint),
-                    array("nation" => $Slo, "match" => $SloMatchNumber, "win" => $SloWin, "draw" => $SloDraw, "lose" => $SloLose, "diff" => $SloScoreDiff, "point" => $SloPoint),
-                    array("nation" => $Esp, "match" => $EspMatchNumber, "win" => $EspWin, "draw" => $EspDraw, "lose" => $EspLose, "diff" => $EspScoreDiff, "point" => $EspPoint),
-                    array("nation" => $Swe, "match" => $SweMatchNumber, "win" => $SweWin, "draw" => $SweDraw, "lose" => $SweLose, "diff" => $SweScoreDiff, "point" => $SwePoint),
+                    array("nation" => $Pol, "rank"=>$PolRank, "overall"=>$PolOverall, "match" => $PolMatchNumber, "win" => $PolWin, "draw" => $PolDraw, "lose" => $PolLose, "diff" => $PolScoreDiff, "point" => $PolPoint),
+                    array("nation" => $Slo, "rank"=>$SloRank, "overall"=>$SloOverall, "match" => $SloMatchNumber, "win" => $SloWin, "draw" => $SloDraw, "lose" => $SloLose, "diff" => $SloScoreDiff, "point" => $SloPoint),
+                    array("nation" => $Esp, "rank"=>$EspRank, "overall"=>$EspOverall, "match" => $EspMatchNumber, "win" => $EspWin, "draw" => $EspDraw, "lose" => $EspLose, "diff" => $EspScoreDiff, "point" => $EspPoint),
+                    array("nation" => $Swe, "rank"=>$SweRank, "overall"=>$SweOverall, "match" => $SweMatchNumber, "win" => $SweWin, "draw" => $SweDraw, "lose" => $SweLose, "diff" => $SweScoreDiff, "point" => $SwePoint),
                 );
+                usort($groupE, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupE, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
@@ -1955,28 +1999,32 @@
                 });
 
                 $groupF = array(
-                    array("nation" => $Hun, "match" => $HunMatchNumber, "win" => $HunWin, "draw" => $HunDraw, "lose" => $HunLose, "diff" => $HunScoreDiff, "point" => $HunPoint),
-                    array("nation" => $Por, "match" => $PorMatchNumber, "win" => $PorWin, "draw" => $PorDraw, "lose" => $PorLose, "diff" => $PorScoreDiff, "point" => $PorPoint),
-                    array("nation" => $Fran, "match" => $FranMatchNumber, "win" => $FranWin, "draw" => $FranDraw, "lose" => $FranLose, "diff" => $FranScoreDiff, "point" => $FranPoint),
-                    array("nation" => $Germ, "match" => $GermMatchNumber, "win" => $GermWin, "draw" => $GermDraw, "lose" => $GermLose, "diff" => $GermScoreDiff, "point" => $GermPoint),
+                    array("nation" => $Hun, "rank"=>$HunRank, "overall"=>$HunOverall, "match" => $HunMatchNumber, "win" => $HunWin, "draw" => $HunDraw, "lose" => $HunLose, "diff" => $HunScoreDiff, "point" => $HunPoint),
+                    array("nation" => $Por, "rank"=>$PorRank, "overall"=>$PorOverall, "match" => $PorMatchNumber, "win" => $PorWin, "draw" => $PorDraw, "lose" => $PorLose, "diff" => $PorScoreDiff, "point" => $PorPoint),
+                    array("nation" => $Fran, "rank"=>$FranRank, "overall"=>$FranOverall, "match" => $FranMatchNumber, "win" => $FranWin, "draw" => $FranDraw, "lose" => $FranLose, "diff" => $FranScoreDiff, "point" => $FranPoint),
+                    array("nation" => $Germ, "rank"=>$GermRank, "overall"=>$GermOverall, "match" => $GermMatchNumber, "win" => $GermWin, "draw" => $GermDraw, "lose" => $GermLose, "diff" => $GermScoreDiff, "point" => $GermPoint),
                 );
-
+                usort($groupF, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupF, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
-
                 usort($groupF, function ($item1, $item2) {
                     return $item2['point'] <=> $item1['point'];
                 });
 
                 $groupThird = array(
-                    array("nation" => $groupA[2]['nation'], "match" => $groupA[2]['match'], "win" => $groupA[2]['win'], "draw" => $groupA[2]['draw'], "lose" => $groupA[2]['lose'], "diff" => $groupA[2]['diff'], "point" => $groupA[2]['point']),
-                    array("nation" => $groupB[2]['nation'], "match" => $groupB[2]['match'], "win" => $groupB[2]['win'], "draw" => $groupB[2]['draw'], "lose" => $groupB[2]['lose'], "diff" => $groupB[2]['diff'], "point" => $groupB[2]['point']),
-                    array("nation" => $groupC[2]['nation'], "match" => $groupC[2]['match'], "win" => $groupC[2]['win'], "draw" => $groupC[2]['draw'], "lose" => $groupC[2]['lose'], "diff" => $groupC[2]['diff'], "point" => $groupC[2]['point']),
-                    array("nation" => $groupD[2]['nation'], "match" => $groupD[2]['match'], "win" => $groupD[2]['win'], "draw" => $groupD[2]['draw'], "lose" => $groupD[2]['lose'], "diff" => $groupD[2]['diff'], "point" => $groupD[2]['point']),
-                    array("nation" => $groupE[2]['nation'], "match" => $groupE[2]['match'], "win" => $groupE[2]['win'], "draw" => $groupE[2]['draw'], "lose" => $groupE[2]['lose'], "diff" => $groupE[2]['diff'], "point" => $groupE[2]['point']),
-                    array("nation" => $groupF[2]['nation'], "match" => $groupF[2]['match'], "win" => $groupF[2]['win'], "draw" => $groupF[2]['draw'], "lose" => $groupF[2]['lose'], "diff" => $groupF[2]['diff'], "point" => $groupF[2]['point']),
+                    array("group"=>"A", "nation" => $groupA[2]['nation'], "rank"=>$groupA[2]['rank'], "overall"=>$groupA[2]['overall'], "match" => $groupA[2]['match'], "win" => $groupA[2]['win'], "draw" => $groupA[2]['draw'], "lose" => $groupA[2]['lose'], "diff" => $groupA[2]['diff'], "point" => $groupA[2]['point']),
+                    array("group"=>"B", "nation" => $groupB[2]['nation'], "rank"=>$groupB[2]['rank'], "overall"=>$groupB[2]['overall'], "match" => $groupB[2]['match'], "win" => $groupB[2]['win'], "draw" => $groupB[2]['draw'], "lose" => $groupB[2]['lose'], "diff" => $groupB[2]['diff'], "point" => $groupB[2]['point']),
+                    array("group"=>"C", "nation" => $groupC[2]['nation'], "rank"=>$groupC[2]['rank'], "overall"=>$groupC[2]['overall'], "match" => $groupC[2]['match'], "win" => $groupC[2]['win'], "draw" => $groupC[2]['draw'], "lose" => $groupC[2]['lose'], "diff" => $groupC[2]['diff'], "point" => $groupC[2]['point']),
+                    array("group"=>"D", "nation" => $groupD[2]['nation'], "rank"=>$groupD[2]['rank'], "overall"=>$groupD[2]['overall'], "match" => $groupD[2]['match'], "win" => $groupD[2]['win'], "draw" => $groupD[2]['draw'], "lose" => $groupD[2]['lose'], "diff" => $groupD[2]['diff'], "point" => $groupD[2]['point']),
+                    array("group"=>"E", "nation" => $groupE[2]['nation'], "rank"=>$groupE[2]['rank'], "overall"=>$groupE[2]['overall'], "match" => $groupE[2]['match'], "win" => $groupE[2]['win'], "draw" => $groupE[2]['draw'], "lose" => $groupE[2]['lose'], "diff" => $groupE[2]['diff'], "point" => $groupE[2]['point']),
+                    array("group"=>"F", "nation" => $groupF[2]['nation'], "rank"=>$groupF[2]['rank'], "overall"=>$groupF[2]['overall'], "match" => $groupF[2]['match'], "win" => $groupF[2]['win'], "draw" => $groupF[2]['draw'], "lose" => $groupF[2]['lose'], "diff" => $groupF[2]['diff'], "point" => $groupF[2]['point']),
                 );
+                usort($groupThird, function ($item1, $item2) {
+                    return $item2['rank'] <=> $item1['rank'];
+                });
                 usort($groupThird, function ($item1, $item2) {
                     return $item2['diff'] <=> $item1['diff'];
                 });
@@ -2388,6 +2436,14 @@
             </div>
         </div>
 
+        <?php
+            echo $groupThird[0]['nation']." - ".$groupThird[0]['group']."<br />";
+            echo $groupThird[1]['nation']." - ".$groupThird[1]['group']."<br />";
+            echo $groupThird[2]['nation']." - ".$groupThird[2]['group']."<br />";
+            echo $groupThird[3]['nation']." - ".$groupThird[3]['group']."<br />";
+
+        ?>
+
         <div class="row">
             <div class="col" style="text-align:center;">
                 <h1>Nyolcaddöntők</h1>
@@ -2402,13 +2458,50 @@
                             <?php echo "TODO" ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupA[0]['nation']; ?>
+                            <?php echo $groupA[0]['nation']." - ".$groupA[0]['overall']; ?>
                             <br>
                             <?php
-                            
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupA[0]['overall'] > $groupC[1]['overall']) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupA[0]['overall'] < $groupC[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupA[0]['overall'] == $groupC[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $secondWinner = $groupA[0]['nation'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $secondWinner = $groupC[1]['nation'];
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $secondWinner = $groupA[0]['nation'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $secondWinner = $groupC[1]['nation'];
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                } 
                             ?>
                             <br>
-                            <?php echo $groupC[1]['nation']; ?>
+                            <?php 
+                                echo $groupC[1]['nation']." - ".$groupC[1]['overall']; 
+                                if (isset($secondWinner)) echo "<br />".$secondWinner; 
+                            ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupF[0]['nation']; ?>
@@ -2419,12 +2512,50 @@
                             <?php echo "TODO" ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupD[1]['nation']; ?>
+                            <?php echo $groupD[1]['nation']." - ".$groupD[1]['overall']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupD[1]['overall'] > $groupE[1]['overall']) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupD[1]['overall'] < $groupE[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupD[1]['overall'] == $groupE[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $fourthWinner = $groupD[1]['nation'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $fourthWinner = $groupE[1]['nation'];
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $fourthWinner = $groupD[1]['nation'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $fourthWinner = $groupE[1]['nation'];
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                } 
                             ?>
                             <br>
-                            <?php echo $groupE[1]['nation']; ?>
+                            <?php 
+                                echo $groupE[1]['nation']." - ".$groupE[1]['overall'];
+                                if (isset($fourthWinner)) echo "<br />".$fourthWinner; 
+                            ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupE[0]['nation']; ?>
@@ -2435,12 +2566,50 @@
                             <?php echo "TODO" ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupD[0]['nation']; ?>
+                            <?php echo $groupD[0]['nation']." - ".$groupD[0]['overall'];; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupD[0]['overall'] > $groupF[1]['overall']) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupD[0]['overall'] < $groupF[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupD[0]['overall'] == $groupF[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $sixthWinner = $groupD[0]['nation'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $sixthWinner = $groupF[1]['nation'];
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $sixthWinner = $groupD[0]['nation'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $sixthWinner = $groupF[1]['nation'];
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                } 
                             ?>
                             <br>
-                            <?php echo $groupF[1]['nation']; ?>
+                            <?php 
+                                echo $groupF[1]['nation']." - ".$groupF[1]['overall'];
+                                if (isset($sixthWinner)) echo "<br />".$sixthWinner; 
+                            ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupC[0]['nation']; ?>
@@ -2451,12 +2620,50 @@
                             <?php echo "TODO" ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupA[1]['nation']; ?>
+                            <?php echo $groupA[1]['nation']." - ".$groupA[1]['overall']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupA[1]['overall'] > $groupB[1]['overall']) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupA[1]['overall'] < $groupB[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupA[1]['overall'] == $groupB[1]['overall']) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $eightWinner = $groupA[1]['nation'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $eightWinner = $groupB[1]['nation'];
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $eightWinner = $groupA[1]['nation'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $eightWinner = $groupB[1]['nation'];
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                } 
                             ?>
                             <br>
-                            <?php echo $groupB[1]['nation']; ?>
+                            <?php 
+                                echo $groupB[1]['nation']." - ".$groupB[1]['overall'];
+                                if (isset($eightWinner)) echo "<br />".$eightWinner;  
+                            ?>
                         </td>
                     </tr>
                     <br>
@@ -2475,7 +2682,7 @@
                             <?php
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($secondWinner)) echo  $secondWinner ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo "TODO" ?>
@@ -2483,7 +2690,7 @@
                             <?php
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($fourthWinner)) echo  $fourthWinner ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo "TODO" ?>
@@ -2491,7 +2698,7 @@
                             <?php
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($sixthWinner)) echo  $sixthWinner ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo "TODO" ?>
@@ -2499,7 +2706,7 @@
                             <?php
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($eightWinner)) echo  $eightWinner ?>
                         </td>
                     </tr>
                     <br>
@@ -2536,7 +2743,7 @@
         </div>
         <div class="row">
             <div class="col" style="text-align:center;">
-                <h1>Döntők</h1>
+                <h1>Döntő</h1>
                 <table style="margin-left: auto; margin-right: auto;">
                     <tr>
                         <td style="width: 10%;">
