@@ -6,12 +6,4 @@ body {
     font-family: Arial;
     color: white;
 }
-
-td {
-    padding: 5px;
-}
   
-.centered {
-    position: absolute;
-    text-align: center;
-}
