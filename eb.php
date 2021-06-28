@@ -2437,11 +2437,96 @@
         </div>
 
         <?php
-            echo $groupThird[0]['nation']." - ".$groupThird[0]['group']."<br />";
-            echo $groupThird[1]['nation']." - ".$groupThird[1]['group']."<br />";
-            echo $groupThird[2]['nation']." - ".$groupThird[2]['group']."<br />";
-            echo $groupThird[3]['nation']." - ".$groupThird[3]['group']."<br />";
+            $third = array(
+                array("nation" => $groupThird[0]['nation'], "group"=>$groupThird[0]['group'], "overall"=>$groupThird[0]['overall']),
+                array("nation" => $groupThird[1]['nation'], "group"=>$groupThird[1]['group'], "overall"=>$groupThird[1]['overall']),
+                array("nation" => $groupThird[2]['nation'], "group"=>$groupThird[2]['group'], "overall"=>$groupThird[2]['overall']),
+                array("nation" => $groupThird[3]['nation'], "group"=>$groupThird[3]['group'], "overall"=>$groupThird[3]['overall']),
+            );
+            usort($third, function ($item1, $item2) {
+                return $item1['group'] <=> $item2['group'];
+            });
 
+            $a = $third[0]['group'];
+            $b = $third[1]['group'];
+            $c = $third[2]['group'];
+            $d = $third[3]['group'];
+
+            if($a == "A" && $b == "B" && $c == "C" && $d == "D" ||
+                $a == "A" && $b == "B" && $c == "C" && $d == "E" ||
+                $a == "A" && $b == "B" && $c == "C" && $d == "F") {
+                $firstFromTheThird = $third[0]['nation'];
+                $secondFromTheThird = $third[3]['nation'];
+                $thirdFromTheThird = $third[1]['nation'];
+                $fourthFromTheThird = $third[2]['nation'];
+
+                $firstOverall = $third[0]['overall'];
+                $secondOverall = $third[3]['overall'];
+                $thirdOverall = $third[1]['overall'];
+                $fourthOverall = $third[2]['overall'];
+            } 
+            if($a == "A" && $b == "B" && $c == "D" && $d == "E" ||
+                $a == "A" && $b == "B" && $c == "D" && $d == "F") {
+                $firstFromTheThird = $third[2]['nation'];
+                $secondFromTheThird = $third[3]['nation'];
+                $thirdFromTheThird = $third[0]['nation'];
+                $fourthFromTheThird = $third[1]['nation'];
+
+                $firstOverall = $third[2]['overall'];
+                $secondOverall = $third[3]['overall'];
+                $thirdOverall = $third[0]['overall'];
+                $fourthOverall = $third[1]['overall'];
+            }
+            if($a == "A" && $b == "B" && $c == "E" && $d == "F" ||
+                $a == "A" && $b == "C" && $c == "E" && $d == "F" ||
+                $a == "A" && $b == "D" && $c == "E" && $d == "F") {
+                $firstFromTheThird = $third[2]['nation'];
+                $secondFromTheThird = $third[3]['nation'];
+                $thirdFromTheThird = $third[1]['nation'];
+                $fourthFromTheThird = $third[0]['nation'];
+
+                $firstOverall = $third[2]['overall'];
+                $secondOverall = $third[3]['overall'];
+                $thirdOverall = $third[1]['overall'];
+                $fourthOverall = $third[0]['overall'];
+            }
+            if($a == "A" && $b == "C" && $c == "D" && $d == "E") {
+                $firstFromTheThird = $third[3]['nation'];
+                $secondFromTheThird = $third[2]['nation'];
+                $thirdFromTheThird = $third[1]['nation'];
+                $fourthFromTheThird = $third[0]['nation'];
+
+                $firstOverall = $third[3]['overall'];
+                $secondOverall = $third[2]['overall'];
+                $thirdOverall = $third[1]['overall'];
+                $fourthOverall = $third[0]['overall'];
+            }
+            if($a == "B" && $b == "C" && $c == "D" && $d == "E") {
+                $firstFromTheThird = $third[3]['nation'];
+                $secondFromTheThird = $third[2]['nation'];
+                $thirdFromTheThird = $third[0]['nation'];
+                $fourthFromTheThird = $third[1]['nation'];
+
+                $firstOverall = $third[3]['overall'];
+                $secondOverall = $third[2]['overall'];
+                $thirdOverall = $third[0]['overall'];
+                $fourthOverall = $third[1]['overall'];
+            }
+            if($a == "A" && $b == "C" && $c == "D" && $d == "F" ||
+                $a == "B" && $b == "C" && $c == "D" && $d == "F" ||
+                $a == "B" && $b == "C" && $c == "E" && $d == "F" ||
+                $a == "B" && $b == "D" && $c == "E" && $d == "F" ||
+                $a == "C" && $b == "D" && $c == "E" && $d == "F") {
+                $firstFromTheThird = $third[3]['nation'];
+                $secondFromTheThird = $third[2]['nation'];
+                $thirdFromTheThird = $third[1]['nation'];
+                $fourthFromTheThird = $third[0]['nation'];
+
+                $firstOverall = $third[3]['overall'];
+                $secondOverall = $third[2]['overall'];
+                $thirdOverall = $third[1]['overall'];
+                $fourthOverall = $third[0]['overall'];
+            }
         ?>
 
         <div class="row">
@@ -2453,12 +2538,51 @@
                             <?php echo $groupB[0]['nation']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupB[0]['overall'] > $firstOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupB[0]['overall'] < $firstOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupB[0]['overall'] == $firstOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $firstWinner = $groupB[0]['nation'];
+                                        $fifthOverall = $groupB[0]['overall'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $firstWinner = $firstFromTheThird;
+                                        $fifthOverall = $firstOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $firstWinner = $groupB[0]['nation'];
+                                                $fifthOverall = $groupB[0]['overall'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $firstWinner = $firstFromTheThird;
+                                                $fifthOverall = $firstOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($firstFromTheThird)) echo $firstFromTheThird;?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupA[0]['nation']." - ".$groupA[0]['overall']; ?>
+                            <?php echo $groupA[0]['nation']; ?>
                             <br>
                             <?php
                                 if (isset($_POST['someAction'])) {
@@ -2474,8 +2598,10 @@
                                     }
                                     if ($firstTeamScore > $secondtTeamScore) {
                                         $secondWinner = $groupA[0]['nation'];
+                                        $sixthOverall = $groupA[0]['overall'];
                                     } else if ($firstTeamScore < $secondtTeamScore) {
                                         $secondWinner = $groupC[1]['nation'];
+                                        $sixthOverall = $groupC[1]['overall'];
                                     } else if ($firstTeamScore == $secondtTeamScore) {
                                         $overtime = true;
                                         do {
@@ -2487,8 +2613,10 @@
                                         if($firstTeamScore != $secondtTeamScore) {
                                            if ($firstTeamScore > $secondtTeamScore) {
                                                 $secondWinner = $groupA[0]['nation'];
+                                                $sixthOverall = $groupA[0]['overall'];
                                             } else if ($firstTeamScore < $secondtTeamScore) {
                                                 $secondWinner = $groupC[1]['nation'];
+                                                $sixthOverall = $groupC[1]['overall'];
                                             }
                                         } 
                                     }
@@ -2498,21 +2626,57 @@
                                 } 
                             ?>
                             <br>
-                            <?php 
-                                echo $groupC[1]['nation']." - ".$groupC[1]['overall']; 
-                                if (isset($secondWinner)) echo "<br />".$secondWinner; 
-                            ?>
+                            <?php echo $groupC[1]['nation'];?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupF[0]['nation']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupF[0]['overall'] > $fourthOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupF[0]['overall'] < $fourthOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupF[0]['overall'] == $fourthOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $thirdWinner = $groupF[0]['nation'];
+                                        $seventhOverall = $groupF[0]['overall'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $thirdWinner = $fourthFromTheThird;
+                                        $seventhOverall = $thirdOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                        if ($firstTeamScore > $secondtTeamScore) {
+                                                $thirdWinner = $groupF[0]['nation'];
+                                                $seventhOverall = $groupF[0]['overall'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $thirdWinner = $fourthFromTheThird;
+                                                $seventhOverall = $thirdOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($fourthFromTheThird)) echo $fourthFromTheThird; ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupD[1]['nation']." - ".$groupD[1]['overall']; ?>
+                            <?php echo $groupD[1]['nation']; ?>
                             <br>
                             <?php
                                 if (isset($_POST['someAction'])) {
@@ -2528,8 +2692,10 @@
                                     }
                                     if ($firstTeamScore > $secondtTeamScore) {
                                         $fourthWinner = $groupD[1]['nation'];
+                                        $eightOverall = $groupD[1]['overall'];
                                     } else if ($firstTeamScore < $secondtTeamScore) {
                                         $fourthWinner = $groupE[1]['nation'];
+                                        $eightOverall = $groupE[1]['overall'];
                                     } else if ($firstTeamScore == $secondtTeamScore) {
                                         $overtime = true;
                                         do {
@@ -2541,8 +2707,10 @@
                                         if($firstTeamScore != $secondtTeamScore) {
                                            if ($firstTeamScore > $secondtTeamScore) {
                                                 $fourthWinner = $groupD[1]['nation'];
+                                                $eightOverall = $groupD[1]['overall'];
                                             } else if ($firstTeamScore < $secondtTeamScore) {
                                                 $fourthWinner = $groupE[1]['nation'];
+                                                $eightOverall = $groupE[1]['overall'];
                                             }
                                         } 
                                     }
@@ -2552,21 +2720,57 @@
                                 } 
                             ?>
                             <br>
-                            <?php 
-                                echo $groupE[1]['nation']." - ".$groupE[1]['overall'];
-                                if (isset($fourthWinner)) echo "<br />".$fourthWinner; 
-                            ?>
+                            <?php echo $groupE[1]['nation']; ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupE[0]['nation']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupE[0]['overall'] > $thirdOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupE[0]['overall'] < $thirdOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupE[0]['overall'] == $thirdOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $fifthWinner = $groupE[0]['nation'];
+                                        $ninthOverall = $groupE[0]['overall'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $fifthWinner = $thirdFromTheThird;
+                                        $ninthOverall = $fifthOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                        if ($firstTeamScore > $secondtTeamScore) {
+                                                $fifthWinner = $groupE[0]['nation'];
+                                                $ninthOverall = $groupE[0]['overall'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $fifthWinner = $thirdFromTheThird;
+                                                $ninthOverall = $fifthOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($thirdFromTheThird)) echo $thirdFromTheThird; ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupD[0]['nation']." - ".$groupD[0]['overall'];; ?>
+                            <?php echo $groupD[0]['nation']; ?>
                             <br>
                             <?php
                                 if (isset($_POST['someAction'])) {
@@ -2582,8 +2786,10 @@
                                     }
                                     if ($firstTeamScore > $secondtTeamScore) {
                                         $sixthWinner = $groupD[0]['nation'];
+                                        $tenthOverall = $groupD[0]['overall'];
                                     } else if ($firstTeamScore < $secondtTeamScore) {
                                         $sixthWinner = $groupF[1]['nation'];
+                                        $tenthOverall = $groupF[1]['overall'];
                                     } else if ($firstTeamScore == $secondtTeamScore) {
                                         $overtime = true;
                                         do {
@@ -2595,8 +2801,10 @@
                                         if($firstTeamScore != $secondtTeamScore) {
                                            if ($firstTeamScore > $secondtTeamScore) {
                                                 $sixthWinner = $groupD[0]['nation'];
+                                                $tenthOverall = $groupD[0]['overall'];
                                             } else if ($firstTeamScore < $secondtTeamScore) {
                                                 $sixthWinner = $groupF[1]['nation'];
+                                                $tenthOverall = $groupF[1]['overall'];
                                             }
                                         } 
                                     }
@@ -2606,21 +2814,57 @@
                                 } 
                             ?>
                             <br>
-                            <?php 
-                                echo $groupF[1]['nation']." - ".$groupF[1]['overall'];
-                                if (isset($sixthWinner)) echo "<br />".$sixthWinner; 
-                            ?>
+                            <?php echo $groupF[1]['nation']; ?>
                         </td>
                         <td style="width: 10%;">
                             <?php echo $groupC[0]['nation']; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($groupC[0]['overall'] > $secondOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($groupC[0]['overall'] < $secondOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($groupC[0]['overall'] == $secondOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $sevenWinner = $groupC[0]['nation'];
+                                        $eleventhOverall = $groupC[0]['overall'];
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $sevenWinner = $secondFromTheThird;
+                                        $eleventhOverall = $seventhOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                        if ($firstTeamScore > $secondtTeamScore) {
+                                                $sevenWinner = $groupC[0]['nation'];
+                                                $eleventhOverall = $groupC[0]['overall'];
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $sevenWinner = $secondFromTheThird;
+                                                $eleventhOverall = $seventhOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php if (isset($secondFromTheThird)) echo $secondFromTheThird; ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo $groupA[1]['nation']." - ".$groupA[1]['overall']; ?>
+                            <?php echo $groupA[1]['nation']; ?>
                             <br>
                             <?php
                                 if (isset($_POST['someAction'])) {
@@ -2636,8 +2880,10 @@
                                     }
                                     if ($firstTeamScore > $secondtTeamScore) {
                                         $eightWinner = $groupA[1]['nation'];
+                                        $twelveOverall = $groupA[1]['nation'];
                                     } else if ($firstTeamScore < $secondtTeamScore) {
                                         $eightWinner = $groupB[1]['nation'];
+                                        $twelveOverall = $groupB[1]['nation'];
                                     } else if ($firstTeamScore == $secondtTeamScore) {
                                         $overtime = true;
                                         do {
@@ -2649,8 +2895,10 @@
                                         if($firstTeamScore != $secondtTeamScore) {
                                            if ($firstTeamScore > $secondtTeamScore) {
                                                 $eightWinner = $groupA[1]['nation'];
+                                                $twelveOverall = $groupA[1]['nation'];
                                             } else if ($firstTeamScore < $secondtTeamScore) {
                                                 $eightWinner = $groupB[1]['nation'];
+                                                $twelveOverall = $groupB[1]['nation'];
                                             }
                                         } 
                                     }
@@ -2660,10 +2908,7 @@
                                 } 
                             ?>
                             <br>
-                            <?php 
-                                echo $groupB[1]['nation']." - ".$groupB[1]['overall'];
-                                if (isset($eightWinner)) echo "<br />".$eightWinner;  
-                            ?>
+                            <?php echo $groupB[1]['nation']; ?>
                         </td>
                     </tr>
                     <br>
@@ -2677,33 +2922,189 @@
                 <table style="margin-left: auto; margin-right: auto;">
                     <tr>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php if (isset($firstWinner)) echo  $firstWinner ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($fifthOverall > $sixthOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($fifthOverall < $sixthOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($fifthOverall == $sixthOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $quarterFirstWinner = $firstWinner;
+                                        $quarterFirstOverall = $fifthOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $quarterFirstWinner = $secondWinner;
+                                        $quarterFirstOverall = $sixthOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $quarterFirstWinner = $firstWinner;
+                                                $quarterFirstOverall = $fifthOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $quarterFirstWinner = $secondWinner;
+                                                $quarterFirstOverall = $sixthOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
                             <?php if (isset($secondWinner)) echo  $secondWinner ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php if (isset($thirdWinner)) echo  $thirdWinner ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($seventhOverall > $eightOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($seventhOverall < $eightOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($seventhOverall == $eightOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $quarterSecondWinner = $thirdWinner;
+                                        $quarterSecondOverall = $seventhOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $quarterSecondWinner = $fourthWinner;
+                                        $quarterSecondOverall = $eightOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $quarterSecondWinner = $thirdWinner;
+                                                $quarterSecondOverall = $seventhOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $quarterSecondWinner = $fourthWinner;
+                                                $quarterSecondOverall = $eightOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
                             <?php if (isset($fourthWinner)) echo  $fourthWinner ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php if (isset($fifthWinner)) echo  $fifthWinner ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($ninthOverall > $tenthOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($ninthOverall < $tenthOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($ninthOverall == $tenthOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $quarterThirdWinner = $fifthWinner;
+                                        $quarterThirdOverall = $ninthOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $quarterThirdWinner = $sixthWinner;
+                                        $quarterThirdOverall = $tenthOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $quarterThirdWinner = $fifthWinner;
+                                                $quarterThirdOverall = $ninthOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $quarterThirdWinner = $sixthWinner;
+                                                $quarterThirdOverall = $tenthOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
                             <?php if (isset($sixthWinner)) echo  $sixthWinner ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php if (isset($sevenWinner)) echo  $sevenWinner ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($eleventhOverall > $twelveOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($eleventhOverall < $twelveOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($eleventhOverall == $twelveOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $quarterFourthWinner = $sevenWinner;
+                                        $quarterFourthOverall = $eleventhOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $quarterFourthWinner = $eightWinner;
+                                        $quarterFourthOverall = $twelveOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $quarterFourthWinner = $sevenWinner;
+                                                $quarterFourthOverall = $eleventhOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $quarterFourthWinner = $eightWinner;
+                                                $quarterFourthOverall = $twelveOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
                             <?php if (isset($eightWinner)) echo  $eightWinner ?>
@@ -2720,20 +3121,98 @@
                 <table style="margin-left: auto; margin-right: auto;">
                     <tr>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php echo $quarterFirstWinner; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($quarterFirstOverall > $quarterSecondOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($quarterFirstOverall < $quarterSecondOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($quarterFirstOverall == $quarterSecondOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $semiFinalFirstWinner = $quarterFirstWinner;
+                                        $semiFinalFirstOverall = $quarterFirstOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $semiFinalFirstWinner = $quarterSecondWinner;
+                                        $semiFinalFirstOverall = $quarterSecondOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                           if ($firstTeamScore > $secondtTeamScore) {
+                                                $semiFinalFirstWinner = $quarterFirstWinner;
+                                                $semiFinalFirstOverall = $quarterFirstOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $semiFinalFirstWinner = $quarterSecondWinner;
+                                                $semiFinalFirstOverall = $quarterSecondOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php echo $quarterSecondWinner; ?>
                         </td>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php echo $quarterThirdWinner; ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($quarterThirdOverall > $quarterFourthOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($quarterThirdOverall < $quarterFourthOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($quarterThirdOverall == $quarterFourthOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $semiFinalSecondWinner = $quarterThirdWinner;
+                                        $semiFinalSecondOverall = $quarterThirdOverall;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $semiFinalSecondWinner = $quarterFourthWinner;
+                                        $semiFinalSecondOverall = $quarterFourthOverall;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                        if ($firstTeamScore > $secondtTeamScore) {
+                                                $semiFinalSecondWinner = $quarterThirdWinner;
+                                                $semiFinalSecondOverall = $quarterThirdOverall;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $semiFinalSecondWinner = $quarterFourthWinner;
+                                                $semiFinalSecondOverall = $quarterFourthOverall;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php echo $quarterFourthWinner; ?>
                         </td>
                     </tr>
                     <br>
@@ -2747,17 +3226,57 @@
                 <table style="margin-left: auto; margin-right: auto;">
                     <tr>
                         <td style="width: 10%;">
-                            <?php echo "TODO" ?>
+                            <?php echo $semiFinalFirstWinner ?>
                             <br>
                             <?php
+                                if (isset($_POST['someAction'])) {
+                                    if ($semiFinalFirstOverall > $semiFinalSecondOverall) {
+                                        $firstTeamScore = mt_rand(1, 3);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    } else if ($semiFinalFirstOverall < $semiFinalSecondOverall) {
+                                        $firstTeamScore = mt_rand(0, 1);
+                                        $secondtTeamScore = mt_rand(1, 3);
+                                    } else if ($semiFinalFirstOverall == $semiFinalSecondOverall) {
+                                        $firstTeamScore = mt_rand(0, 2);
+                                        $secondtTeamScore = mt_rand(0, 2);
+                                    }
+                                    if ($firstTeamScore > $secondtTeamScore) {
+                                        $tournamentWinner = $semiFinalFirstWinner;
+                                    } else if ($firstTeamScore < $secondtTeamScore) {
+                                        $tournamentWinner = $semiFinalSecondWinner;
+                                    } else if ($firstTeamScore == $secondtTeamScore) {
+                                        $overtime = true;
+                                        do {
+                                            $a = mt_rand(0, 1);
+                                            $b = mt_rand(0, 1);
+                                        } while($a == $b);
+                                        $firstTeamScore += $a;
+                                        $secondtTeamScore += $b;
+                                        if($firstTeamScore != $secondtTeamScore) {
+                                        if ($firstTeamScore > $secondtTeamScore) {
+                                                $tournamentWinner = $semiFinalFirstWinner;
+                                            } else if ($firstTeamScore < $secondtTeamScore) {
+                                                $tournamentWinner = $semiFinalSecondWinner;
+                                            }
+                                        } 
+                                    }
+                                    echo $firstTeamScore;
+                                    echo " - ";
+                                    echo $secondtTeamScore;
+                                }
                             ?>
                             <br>
-                            <?php echo "TODO" ?>
+                            <?php echo $semiFinalSecondWinner ?>
                         </td>
                     </tr>
                     <br>
                 </table>
                 <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align:center;">
+                <h2>2020-as labdarúgó-Európa-bajnokság győztese: <?php echo $tournamentWinner ?></h2>
             </div>
         </div>
     </div>
