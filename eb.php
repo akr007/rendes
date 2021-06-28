@@ -14,7 +14,7 @@
           //  window.history.replaceState(null, null, window.location.href);
         //}
     </script>
-    <title>Football Európa Bajnokság</title>
+    <title>2020 Labdarúgó Európa Bajnokság</title>
 </head>
 
 <body>
@@ -310,14 +310,17 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-5"></div>
-            <div class="col-sm-5">
+            <div class="col-md-8" style="text-align:center;">
+                <h1>2020-as labdarúgó-Európa-bajnokság</h1>
+            </div>
+            <div class="col-md-4" style="text-align:center;">
                 <form method="post">
-                    <input type="submit" name="someAction" value="Simulate" style="font-size: 30px;" />
+                    <input type="submit" name="someAction" value="Szimuláció" style="font-size: 30px;" />
                 </form>
             </div>
-            <div class="col"></div>
         </div>
+        <br><br>
+
         <div class="row">
             <div class="col-md-7" style="text-align:center;">
                 <h1>Csoportmérkőzések</h1>
@@ -2916,6 +2919,7 @@
                 <br>
             </div>
         </div>
+
         <div class="row">
             <div class="col" style="text-align:center;">
                 <h1>Negyeddöntők</h1>
@@ -3115,6 +3119,7 @@
                 <br>
             </div>
         </div>
+
         <div class="row">
             <div class="col" style="text-align:center;">
                 <h1>Elődöntők</h1>
@@ -3220,6 +3225,7 @@
                 <br>
             </div>
         </div>
+
         <div class="row">
             <div class="col" style="text-align:center;">
                 <h1>Döntő</h1>
@@ -3274,12 +3280,13 @@
                 <br>
             </div>
         </div>
+
         <div class="row">
             <div class="col" style="text-align:center;">
                 <h2>2020-as labdarúgó-Európa-bajnokság győztese: <?php echo $tournamentWinner ?></h2>
             </div>
         </div>
+
     </div>
 </body>
-
 </html>
