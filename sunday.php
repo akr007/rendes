@@ -1,8 +1,9 @@
     <?php
         include("header.html");
         include("navbar.html");
+        include("footer.html");
     ?>
-    <title>Document</title>
+    <title>Vasárnap</title>
 </head>
 <body>
     <div class="container">
@@ -111,50 +112,49 @@
             } 
         ?>
         <p>
-        <?php 
-            if(isset($_POST['ok'])){
-                echo "Kezdő dátum: ".$date." ".$day;
-                echo "<br />";
-                echo "A kezdő dátum után következő hónap első napja: ".$nextMonth. " ". $nextMonthDay;
-                echo "<br />";
-                echo "<br />";
-                echo "Jelenlegi dátum: ".$currentTime;
-                echo "<br />";
-                echo "A jelenlegi hónap első napja: ".$currentMonth. " ". $currentMonthDay;
-                echo "<br />";
-                echo "<br />";
-            
-                $begin = new DateTime($nextMonth);
-                $end = new DateTime($currentMonth);
-                $end = $end->modify( '+1 day' ); 
-
-                $interval = new DateInterval('P1D');
-                $daterange = new DatePeriod($begin, $interval ,$end);
+            <?php 
+                if(isset($_POST['ok'])){
+                    echo "Kezdő dátum: ".$date." ".$day;
+                    echo "<br />";
+                    echo "A kezdő dátum után következő hónap első napja: ".$nextMonth. " ". $nextMonthDay;
+                    echo "<br />";
+                    echo "<br />";
+                    echo "Jelenlegi dátum: ".$currentTime;
+                    echo "<br />";
+                    echo "A jelenlegi hónap első napja: ".$currentMonth. " ". $currentMonthDay;
+                    echo "<br />";
+                    echo "<br />";
                 
-                $sundayCount = 0;
-                $finished = false;
-                foreach($daterange as $dat){
-                    $result = $dat->format('Y-m-d');
-                    $lastChar = substr($result, -2);
-                    if($lastChar == "01") {
-                        $Day = strtotime($result);
-                        $whatDay = date('l', $Day);
-                        if($whatDay == "Sunday") {
-                            $sundayCount++;
-                        }
-                        $finished = true;
-                    }
-                }
+                    $begin = new DateTime($nextMonth);
+                    $end = new DateTime($currentMonth);
+                    $end = $end->modify( '+1 day' ); 
 
-                if($finished) {
-                    if($sundayCount > 0) {
-                        echo $date." dátumtól egészen ".$currentTime2." dátumig bezárólag összesen ".$sundayCount."  olyan vasárnap volt, amely a hónap első napjára esett! ";
-                    } else if($sundayCount == 0) {
-                        echo $date." dátumtól egészen ".$currentTime2." dátumig bezárólag összesen 0 olyan vasárnap volt, amely a hónap első napjára esett! ";
+                    $interval = new DateInterval('P1D');
+                    $daterange = new DatePeriod($begin, $interval ,$end);
+                    
+                    $sundayCount = 0;
+                    $finished = false;
+                    foreach($daterange as $dat){
+                        $result = $dat->format('Y-m-d');
+                        $lastChar = substr($result, -2);
+                        if($lastChar == "01") {
+                            $Day = strtotime($result);
+                            $whatDay = date('l', $Day);
+                            if($whatDay == "Sunday") {
+                                $sundayCount++;
+                            }
+                            $finished = true;
+                        }
+                    }
+
+                    if($finished) {
+                        if($sundayCount > 0) {
+                            echo $date." dátumtól egészen ".$currentTime2." dátumig bezárólag összesen ".$sundayCount."  olyan vasárnap volt, amely a hónap első napjára esett! ";
+                        } else if($sundayCount == 0) {
+                            echo $date." dátumtól egészen ".$currentTime2." dátumig bezárólag összesen 0 olyan vasárnap volt, amely a hónap első napjára esett! ";
+                        }
                     }
                 }
-            }
-        ?></p>
+            ?>
+        </p>
     </div>
-</body>
-</html>

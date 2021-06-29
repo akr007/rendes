@@ -1,11 +1,13 @@
     <?php
         include("header.html");
         include("navbar.html");
+        include("footer.html");
     ?>
-    <title>Document</title>
+    <title>753. probléma</title>
 </head>
 <body>
     <div class="container">
+        <h1>Nem sikerült megoldani Euler 753. problémáját, mivel nem találtam kézzel fogható példát az interneten, így nem tudtam megérteni a problémát. F(5), F(7) és F(12)-re a (p-1)*(p-2) segítségével kijöttek az eredmények, de a többi szám rejtély maradt.</h1>
         <form method="post">
             p:<input type="text" name="p" id="p" value="1" required min="1" max="100000">
             <button type="submit" name="ok">OK</button>
@@ -20,34 +22,4 @@
                      </style>';
             }
         ?>
-        <form id="valuesForm" method="post">
-            a:<input type="text" name="a" id="a" value="0" required min="1" max=<?php $p ?>>
-            b:<input type="text" name="b" id="b" value="0" required min="1" max=<?php $p ?>>
-            c:<input type="text" name="c" id="c" value="0" required min="1" max=<?php $p ?>>
-            <button type="submit" name="submit">OK</button>
-        </form>
-        <?php
-            if(isset($_POST['submit'])){
-                $a = $_POST['a'];
-                $b = $_POST['b'];
-                $c = $_POST['c'];
-
-                echo '<br />';
-                echo $_POST['a'];
-                echo '<br />';
-                echo $_POST['b'];
-                echo '<br />';
-                echo $_POST['c'];
-                echo '<br />';
-            }
-        ?>
-        <p>
-            <?php
-                if(isset($_POST['a']) && isset($_POST['b']) && isset($_POST['c']) && isset($_POST['p'])){
-                    echo pow($a, 3) + pow($b, 3)."x = ".pow($c, 3)." (mod".$p." )";
-                }   
-            ?>
-        </p>
     </div>
-</body>
-</html>
