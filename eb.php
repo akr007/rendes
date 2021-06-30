@@ -27,17 +27,25 @@
 
             <div class="row">
                 <?php
+                    //A csoportokban történő meccsek kiszámítása
                     include("eb/groupStageSim.php");
+                    //A meccsek utáni adatok frissítése
                     include("eb/groupStage.php");
+                    //Az adatok vizualizálása egy táblázatban
                     include("eb/groupStageTable.php");
                 ?>  
             </div>
 
             <?php
+                //A harmadik helyezettek sorrendjét állapítja meg, az előre meghatározott szabályok alapján (lásd 2021 eb wiki)
                 include("eb/thirdPlaceSorter.php");
+                //A legjobb 16 közé került csapatok meccseinek kiszámítása és a nyertesek megállapítása
                 include("eb/roundOfSixteen.php");
+                //A legjobb 8 közé került csapatok meccseinek kiszámítása és a nyertesek megállapítása
                 include("eb/quarterFinals.php");
-                include("eb/semiFinals.php");
+                //A legjobb 4 közé került csapatok meccseinek kiszámítása és a nyertesek megállapítása
+                include("eb/semiFinals.php"); 
+                //A döntőbe került csapatok meccseinek kiszámítása és a végső nyertes megállapítása
                 include("eb/final.php");
             ?>   
 

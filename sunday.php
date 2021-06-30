@@ -14,6 +14,7 @@
         <?php
             if(isset($_POST['ok'])){
                 setlocale(LC_ALL,'hungarian');
+                // változók
                 $monday = "hétfő";
                 $tuesday = "kedd";
                 $wednesday = "szerda";
@@ -22,13 +23,17 @@
                 $saturday = "szombat";
                 $sunday = "vasárnap";
 
+                // a megadott dátum és a hozzátartozó nap tárolása
                 $date = $_POST['date'];
                 $timestamp = strtotime($date);
                 $day = date('l', $timestamp);
                 
+                // jelenlegi dátum
                 $currentTime = utf8_encode(strftime("%Y-".date('m', strtotime('0 month'))."-%d %A", time()));
                 $currentTime2 = utf8_encode(strftime("%Y-".date('m', strtotime('0 month'))."-%d", time()));
 
+                // ha a megadott dátum 01-re esik, akkor jelenlegi hónapot vesszük
+                // ha nem, akkor pedig a következő hónapot
                 $lastChar = substr($date, -2);
                 if($lastChar == "01" ) {
                     $nextMonth = date('Y-m-01', strtotime('0 month', strtotime($date)));
@@ -40,6 +45,7 @@
                     $nextMonthDay = date('l', $nextMonthTimeStamp);
                 }
 
+                // jelnlegi hónap első napja
                 $currentMonth = date('Y-m-01', strtotime('0 month'));
                 $currentMonthTimeStamp = strtotime($currentMonth);
                 $currentMonthDay = date('l', $currentMonthTimeStamp);
@@ -125,22 +131,26 @@
                     echo "<br />";
                     echo "<br />";
                 
-                    $begin = new DateTime($nextMonth);
-                    $end = new DateTime($currentMonth);
+                    $begin = new DateTime($nextMonth); //a megadott dátum utáni hónap
+                    $end = new DateTime($currentMonth); // a jelenlegi hónap
                     $end = $end->modify( '+1 day' ); 
 
-                    $interval = new DateInterval('P1D');
+                    $interval = new DateInterval('P1D'); //egy nap
                     $daterange = new DatePeriod($begin, $interval ,$end);
                     
                     $sundayCount = 0;
                     $finished = false;
+                    //a megadott dátum utáni hónaptól a jelenlegi hónapig
                     foreach($daterange as $dat){
                         $result = $dat->format('Y-m-d');
                         $lastChar = substr($result, -2);
+                        // ha 01-re végződik a dátum
                         if($lastChar == "01") {
                             $Day = strtotime($result);
                             $whatDay = date('l', $Day);
+                            // és a dátum vasárnap
                             if($whatDay == "Sunday") {
+                                // akkor növelni kell a számlálót
                                 $sundayCount++;
                             }
                             $finished = true;
